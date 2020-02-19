@@ -13,28 +13,28 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inicio',
-      url: '/folder/Inbox',
+      title: 'home',
+      url: '/home',
       icon: 'home'
     },
     {
       title: 'Estado de cuenta',
-      url: '/estado-cuenta',
+      url: '/estatus-cuenta',
       icon: 'wallet'
     },
     {
       title: 'Pagar mensualidad',
-      url: '/folder/Outbox',
+      url: '/payments',
       icon: 'card'
     },
     {
       title: 'Historial de pagos',
-      url: '/folder/Favorites',
+      url: '/history-payment',
       icon: 'list'
     },
     {
       title: 'Mi perfil',
-      url: '/folder/Archived',
+      url: '/perfil',
       icon: 'person'
     },
     {
