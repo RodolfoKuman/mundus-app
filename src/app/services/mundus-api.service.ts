@@ -24,6 +24,12 @@ export class MundusApiService {
     }
   }
 
+  public getPost(){
+    return this.http.get('https://jsonplaceholder.typicode.com/posts');
+  }
+
+  
+
   public getProductos(limit: number, offset: number): Observable<GlobalResponse> {
     return this.buildQuery('get', `products/limit/${limit}/offset/${offset}`);
   }

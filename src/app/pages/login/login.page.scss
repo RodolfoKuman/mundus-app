@@ -1,0 +1,36 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+    width: 100%;
+    ion-img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 30px;
+    }
+    ion-input {
+        background: white;
+        max-height: 50px;
+        color: black;
+        margin-bottom: 20px;
+        border-radius: 20px;
+    }
+    ion-button {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .color-white{
+        background: #FCFFFA;
+    }
+}
+
+ion-content{
+    --ion-background-color: #111E6C;
+}
+
+h1{
+    font-size: 2em;;
+}

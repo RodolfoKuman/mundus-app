@@ -9,11 +9,13 @@ import { MundusApiService } from '../../services/mundus-api.service';
 export class HomePage implements OnInit {
 
   public productos: Array<any>;
+  public posts: any[] = [];
 
   constructor(private mundusApiService: MundusApiService) { }
 
   ngOnInit() {
-    //this.loadProducts();
+    this.loadProducts();
+    this.loadPosts();
   }
 
   public loadProducts() {
@@ -21,6 +23,12 @@ export class HomePage implements OnInit {
       console.log(response); 
       this.productos = response.data;
     });
+  }
+
+  public loadPosts(){
+    this.mundusApiService.getPost().subscribe((posts: any[]) => {
+      this.posts = posts;
+    })
   }
 
   

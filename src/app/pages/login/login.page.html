@@ -1,0 +1,38 @@
+<ion-content class="ion-padding bg-blue-dark" fullscreen="true">
+  <form [formGroup]="formLogin" >
+  <div class="content">
+    <ion-text>
+      <ion-label>
+        <h1>MUNDUS</h1>
+      </ion-label>
+    </ion-text>
+    <ion-img
+            src="/assets/icon/logo-mundus.png"></ion-img>
+
+    <ion-input
+            formControlName = "email"
+            placeholder = "Correo"
+            type = "text"
+            name = "email"></ion-input>
+
+    <ion-input
+            formControlName = "password"
+            name = "password"
+            type = "password"
+            placeholder = "Contraseña"></ion-input>
+
+    <ion-button 
+            shape="round"
+            size = "large"
+            color="light"
+            > Ingresar 
+          </ion-button>
+
+    <ion-button 
+            shape="round"
+            color = "dark"
+            size = "large"> Registrar </ion-button>
+
+  </div>
+  </form>
+</ion-content>
