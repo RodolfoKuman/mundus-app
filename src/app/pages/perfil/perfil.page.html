@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
+  <ion-item-group>
+    <ion-item-divider>
+      <ion-label>
+        <ion-text color="tertiary">
+          Mi perfil
+        </ion-text>
+      </ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label slot="start">Nombre:</ion-label>
+      <ion-label>
+        <ion-text color="medium">
+          <h2></h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="start">Email:</ion-label>
+      <ion-label>
+        <ion-text color="medium">
+          <h2></h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-item-group>
 </ion-content>

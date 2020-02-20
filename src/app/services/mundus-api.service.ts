@@ -24,8 +24,8 @@ export class MundusApiService {
     }
   }
 
-  public getPerfil( limit: number, offset: number ): Observable<GlobalResponse> {
-    return this.buildQuery('get', `profile`);
+  public getProductos(limit: number, offset: number): Observable<GlobalResponse> {
+    return this.buildQuery('get', `products/limit/${limit}/offset/${offset}`);
   }
 
 }

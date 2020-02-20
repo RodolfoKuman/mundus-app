@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: '**',//Redirige a esta ruta si no existe la que se puso
-    redirectTo: '/home',
+    redirectTo: 'home',
   },
 ];
 

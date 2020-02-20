@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Pagar mensualidad</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,7 +11,7 @@
   <ion-card>   
     <ion-card-content>
       <ion-item>
-        <ion-label>Seleccione un desarrollo</ion-label>
+        <ion-label>Seleccionar desarrollo</ion-label>
         <ion-select>
           <ion-select-option value="1">Mza 1 Mundus</ion-select-option>
           <ion-select-option value="2">Mza 2 Mundus</ion-select-option>
@@ -16,7 +19,13 @@
       </ion-item>  
       <ion-item>
           <ion-label>Elija un periodo</ion-label>
-          <ion-datetime displayFormat="MMMM" value="2012-12-15T13:47:20.789"></ion-datetime>
+          <ion-datetime 
+            monthNames="{{meses}}"
+            cancelText="Cancelar" 
+            doneText="Ok" 
+            displayFormat="MMMM-YYYY" 
+            value="2020-01-15T13:47:20.789">
+          </ion-datetime>
       </ion-item>
       <ion-button>Generar</ion-button>
     </ion-card-content>  

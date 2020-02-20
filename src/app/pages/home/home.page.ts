@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MundusApiService } from '../../services/mundus-api.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  public productos: Array<any>;
+
+  constructor(private mundusApiService: MundusApiService) { }
 
   ngOnInit() {
+    //this.loadProducts();
   }
+
+  public loadProducts() {
+    this.mundusApiService.getProductos(50, 0).subscribe(response => {
+      console.log(response); 
+      this.productos = response.data;
+    });
+  }
+
+  
 
 }
