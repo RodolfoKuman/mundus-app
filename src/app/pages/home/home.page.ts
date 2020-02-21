@@ -10,15 +10,16 @@ export class HomePage implements OnInit {
 
   public productos: Array<any>;
   public posts: any[] = [];
+  public sel_desarrollo: number = 1;
 
   constructor(private mundusApiService: MundusApiService) { }
 
   ngOnInit() {
-    this.loadProducts();
-    this.loadPosts();
+    //this.loadProducts();
+    this.getAccountDetail();
   }
 
-  public loadProducts() {
+  /*public loadProducts() {
     this.mundusApiService.getProductos(50, 0).subscribe(response => {
       console.log(response); 
       this.productos = response.data;
@@ -30,7 +31,13 @@ export class HomePage implements OnInit {
       this.posts = posts;
     })
   }
+*/
 
+  public getAccountDetail(){
+    this.mundusApiService.getAccountDetail({sel_desarrollo: 1}).subscribe(response => {
+      console.log(response);
+    })
+  } 
   
 
 }

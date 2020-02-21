@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlAPI: "https://fity.com.mx/api/"
+  urlAPI: "http://localhost:8000/api/"
 };
 
 /*

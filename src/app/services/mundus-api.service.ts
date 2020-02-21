@@ -24,14 +24,31 @@ export class MundusApiService {
     }
   }
 
+  //PRUEBAS
+
   public getPost(){
     return this.http.get('https://jsonplaceholder.typicode.com/posts');
   }
 
-  
-
   public getProductos(limit: number, offset: number): Observable<GlobalResponse> {
     return this.buildQuery('get', `products/limit/${limit}/offset/${offset}`);
   }
+
+  //USUARIOS
+
+  public loginUser( params: { email: string; password: string; } ): Observable<any> {
+    return this.buildQuery('post', 'auth/login', params);
+  }
+
+  public getUserLoged( token: string ): Observable<any> {
+    return this.buildQuery('get', 'auth/user', null, {
+      Authorization: 'Bearer '.concat(token)
+    });
+  }
+
+  public getAccountDetail(params: { sel_desarrollo : number; }): Observable<any> {
+    return this.buildQuery('post', 'customer/account_detail', params);
+  }
+ 
 
 }
