@@ -16,8 +16,8 @@ export class LoginPage implements OnInit {
   public formLogin: FormGroup;
 
   constructor(
-   // private events: Events,
-   private navController: NavController,
+    // private events: Events,
+    private navController: NavController,
     private localService: LocalService,
     private mundusApiService: MundusApiService,
     private loadingCtrl: LoadingController,

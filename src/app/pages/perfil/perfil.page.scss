@@ -1,3 +1,11 @@
 ion-item {
     --border-color: #fff;
 }
+
+ion-icon, ion-text{ 
+    font-size: 1.5em;
+}
+
+ion-item-divider ion-text{
+    margin-left: .2em;
+}

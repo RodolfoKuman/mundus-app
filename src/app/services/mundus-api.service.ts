@@ -46,8 +46,14 @@ export class MundusApiService {
     });
   }
 
+  //Desarrollos
+
   public getAccountDetail(params: { sel_desarrollo : number; }): Observable<any> {
     return this.buildQuery('post', 'customer/account_detail', params);
+  }
+
+  public getDesarrollosByUser(params: { user_id : number; }): Observable<any> {
+    return this.buildQuery('post', 'customer/getDesarrollosByClient', params);
   }
  
 
