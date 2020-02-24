@@ -4,13 +4,13 @@
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header >
-            <ion-text color="primary">Mundus App</ion-text>
+            <ion-text color="success">Mundus App</ion-text>
           </ion-list-header >
          
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-              <ion-icon color="primary"  slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-icon color="success"  slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>

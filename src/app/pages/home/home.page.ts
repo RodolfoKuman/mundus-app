@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NavController, LoadingController, ToastController} from '@ionic/angular';
+import {ToastController} from '@ionic/angular';
 
 import { AcountDetail } from '../../interfaces/AccountDetail.interface';
 import { Desarrollo } from '../../interfaces/AccountDetail.interface';
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   public desarrollos : Desarrollo[] = [];
   public usuario : Usuario = null;
   public acountDetail : AcountDetail[] = [];
-  public sel_desarrollo: number = 1;
+  public sel_desarrollo: number;
   public desarrollo_id : number;
 
   public formAcountData: FormGroup;

@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalResponse } from '../interfaces/responses.interface';
+//import { FileSaver } from 'file-saver';
 
 const URL_API = environment.urlAPI;
 
@@ -11,7 +12,8 @@ const URL_API = environment.urlAPI;
 })
 export class MundusApiService {
 
-  constructor(private http: HttpClient) { 
+  constructor(
+    private http: HttpClient) { 
 
   }
 
@@ -48,13 +50,24 @@ export class MundusApiService {
 
   //Desarrollos
 
+  public getDesarrollosByUser(params: { user_id : number; }): Observable<any> {
+    return this.buildQuery('post', 'customer/getDesarrollosByClient', params);
+  }
+
   public getAccountDetail(params: { sel_desarrollo : number; }): Observable<any> {
     return this.buildQuery('post', 'customer/account_detail', params);
   }
 
-  public getDesarrollosByUser(params: { user_id : number; }): Observable<any> {
-    return this.buildQuery('post', 'customer/getDesarrollosByClient', params);
+  /*public getAccountStatus(params: { sel_desarrollo : number; }): Observable<any> {
+    return this.buildQuery('post', 'customer/generate_pdf_for_app', params);
+  }*/
+
+  public getAccountStatus(params: { sel_desarrollo : number; }): Observable<any> {
+    return this.http.post('http://localhost:8001/api/customer/generate_pdf_for_app', {
+      params: params,
+      responseType: 'blob'
+    })
   }
- 
+
 
 }

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
@@ -10,15 +10,22 @@
 <ion-content>
   <ion-card>   
     <ion-card-content>
-      <ion-item>
-        <ion-label>Seleccione un desarrollo</ion-label>
-        <ion-select>
-          <ion-select-option value="1">Mza 1 Mundus</ion-select-option>
-          <ion-select-option value="2">Mza 2 Mundus</ion-select-option>
-          <ion-select-option value="2">Mza 3 Mundus</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-button  expand="block" shape="round">Buscar</ion-button>
+      <form [formGroup]="formAcountData">
+        <ion-item>
+          <ion-label>Seleccione un desarrollo</ion-label>
+          <ion-select  
+            formControlName = "desarrollo"
+            name = "desarrollo"
+            cancelText="Cancelar" 
+            doneText="Ok">
+            <ion-select-option 
+              *ngFor="let desarrollo of desarrollos" 
+              value="{{ desarrollo.id_desarrollo_lote }}">{{ desarrollo.descripion }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button (click)="getAccountStatus()" expand="block"  shape="round">Buscar</ion-button>
+      </form>
     </ion-card-content>  
   </ion-card>
 </ion-content>
