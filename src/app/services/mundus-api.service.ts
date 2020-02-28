@@ -58,15 +58,9 @@ export class MundusApiService {
     return this.buildQuery('post', 'customer/account_detail', params);
   }
 
-  /*public getAccountStatus(params: { sel_desarrollo : number; }): Observable<any> {
-    return this.buildQuery('post', 'customer/generate_pdf_for_app', params);
-  }*/
-
-  public getAccountStatus(params: { sel_desarrollo : number; }): Observable<any> {
-    return this.http.post('http://localhost:8001/api/customer/generate_pdf_for_app', {
-      params: params,
-      responseType: 'blob'
-    })
+  //Pagos
+  public serchPeriodPayment(params: { sel_desarrollo : number; periodo : string }): Observable<any>{
+    return this.buildQuery('post', 'payment/consulting', params);
   }
 
 

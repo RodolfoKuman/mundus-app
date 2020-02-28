@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastController} from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { environment } from 'src/environments/environment';
 
 import { AcountDetail } from '../../interfaces/AccountDetail.interface';
 import { Desarrollo } from '../../interfaces/AccountDetail.interface';
@@ -8,6 +10,8 @@ import { Usuario } from '../../interfaces/usuario.interface';
 
 import { MundusApiService } from '../../services/mundus-api.service';
 import { LocalService } from '../../services/local.service';
+
+const URL_API = environment.urlAPI;
 
 @Component({
   selector: 'app-estatus-cuenta',
@@ -28,7 +32,8 @@ export class EstatusCuentaPage implements OnInit {
   constructor(
     private mundusApiService: MundusApiService,
     private localService: LocalService,
-    private toasCtrl: ToastController
+    private toasCtrl: ToastController,
+    private iab: InAppBrowser
   ) { }
 
   ngOnInit() {
@@ -50,15 +55,9 @@ export class EstatusCuentaPage implements OnInit {
   public getAccountStatus(){
     if(this.formAcountData.controls.desarrollo.value != ''){
       this.desarrollo_id = this.formAcountData.controls.desarrollo.value;
-      this.mundusApiService.getAccountStatus({ sel_desarrollo: this.desarrollo_id }).subscribe(response => {
-        var mediaType = 'application/pdf';
 
-          console.log(response);
-          /*var blob = new Blob([response.], {type: mediaType});
-          var filename = 'test.pdf';
-          this.fileSaver.saveAs(blob, filename);*/
-        
-      })
+      const browser = this.iab.create(`${URL_API}customer/generate_pdf_for_app/desarrollo/${this.desarrollo_id}` );
+
     }else{
       this.showToast('Debe seleccionar un desarrollo');
     }
