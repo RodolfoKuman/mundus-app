@@ -35,7 +35,7 @@
               cancelText="Cancelar" 
               doneText="Ok" 
               displayFormat="MMMM-YYYY" 
-              value="2020-01-15T13:47:20.789">
+              value="">
               
             </ion-datetime>
         </ion-item>
@@ -43,13 +43,9 @@
       </form>
     </ion-card-content>  
   </ion-card>
-  <iframe class="iframe-fix"
-  src="https://wppsandbox.mit.com.mx/i/UIRW2ES1"
-  width="320px" 
-  height="750px" 
-  frameborder="0" 
-  scrolling="no"
-  seamless="seamless"
-  ></iframe>
+  <div *ngIf="showCard">
+    <app-payment-card  [url]="uri_payment"></app-payment-card>
+  </div>
+  
 </ion-content>
 

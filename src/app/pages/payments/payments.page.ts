@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { DomSanitizer} from '@angular/platform-browser';
 import {ToastController} from '@ionic/angular';
 
 import { Desarrollo } from '../../interfaces/AccountDetail.interface';
@@ -15,14 +16,17 @@ import { LocalService } from '../../services/local.service';
 })
 export class PaymentsPage implements OnInit {
 
-  public desarrollos : Desarrollo[] = [];
-  public usuario : Usuario = null;
-  public sel_desarrollo: number;
-  public desarrollo_id : number;
-  public meses:Array<string>;
-  public myDate = new Date().toISOString();
+  desarrollos : Desarrollo[] = [];
+  usuario : Usuario = null;
+  sel_desarrollo: number;
+  desarrollo_id : number;
+  meses:Array<string>;
+  periodo = new Date().toISOString();
+  uri_payment : string;
 
-  public formPayment: FormGroup;
+  showCard: boolean = false;
+
+  formPayment: FormGroup;
   
   constructor(
     private mundusApiService: MundusApiService,
@@ -53,16 +57,31 @@ export class PaymentsPage implements OnInit {
   public searchPaymentPeriod() {
     if(this.formPayment.controls.desarrollo.value != ''){
       this.desarrollo_id = this.formPayment.controls.desarrollo.value;
-  
-      //Llamar al servicio para buscar el periodo de pago dado
+      this.mundusApiService.serchPeriodPayment({sel_desarrollo: this.desarrollo_id, periodo: this.periodo.substring(0,7)})
+          .subscribe(response => {
+            if(response == 0){
+              this.showCard = false;
+              this.showToast('No tiene un adeudo en este periodo');
+            }else{
+               // response.uri_payment[0];
+               this.uri_payment = response.uri_payment[0];
+               console.log(this.uri_payment);
+              this.showPaymentCard();
+            }
+            
+          });
     }else{
+      this.showCard = false;
       this.showToast('Debe seleccionar un desarrollo');
     }
   }
 
+  public showPaymentCard(){
+    this.showCard = true;
+  }
+
   public dateChanged(date) {
-    console.log(date);
-    console.log(this.myDate);
+    this.periodo = date.detail.value;
   }
   
 

@@ -5,8 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { PaymentsPageRoutingModule } from './payments-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 import { PaymentsPage } from './payments.page';
+
 
 @NgModule({
   imports: [
@@ -14,7 +16,8 @@ import { PaymentsPage } from './payments.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    PaymentsPageRoutingModule
+    PaymentsPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [PaymentsPage]
 })
