@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NavController, LoadingController, ToastController} from '@ionic/angular';
+import {NavController, LoadingController, ToastController, MenuController} from '@ionic/angular';
 
 import {LocalService} from '../../services/local.service';
 import {MundusApiService} from '../../services/mundus-api.service';
@@ -21,7 +21,8 @@ export class LoginPage implements OnInit {
     private localService: LocalService,
     private mundusApiService: MundusApiService,
     private loadingCtrl: LoadingController,
-    private toasCtrl: ToastController
+    private toasCtrl: ToastController,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
@@ -40,7 +41,9 @@ export class LoginPage implements OnInit {
     }).subscribe( response => {
         this.mundusApiService.getUserLoged( response.access_token ).subscribe( (user: Usuario) => {
             this.localService.saveObject('usuario', user);
+            this.localService.saveObject('token', response.access_token);
             loading.dismiss();
+            this.menuCtrl.enable(true);
             this.navController.navigateRoot('/home');
             //this.events.publish('login:event', true);
         });

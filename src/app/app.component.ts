@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Platform, NavController, IonMenu, MenuController  } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { MundusApiService } from './services/mundus-api.service';
+import { LocalService } from './services/local.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
+  public token : string;
   public appPages = [
     {
       title: 'Inicio',
@@ -36,11 +39,6 @@ export class AppComponent implements OnInit {
       title: 'Mi perfil',
       url: '/perfil',
       icon: 'person'
-    },
-    {
-      title: 'Cerrar sesion',
-      url: '/folder/Archived',
-      icon: 'log-out'
     }
   ];
   //public labels = ['Cerrar sesion'];
@@ -48,7 +46,11 @@ export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private navController: NavController,
+    private localService : LocalService,
+    private mundusApiService : MundusApiService,
+    private menuCtrl: MenuController
   ) {
     this.initializeApp();
   }
@@ -57,6 +59,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.validateLoged();
     });
   }
 
@@ -66,4 +69,30 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
   }
+
+  private validateLoged(): void {
+    this.localService.getObject('usuario').then( data => {
+      if ( data.value != null ) {       
+        this.navController.navigateRoot('/home');    
+      } else {
+        this.navController.navigateRoot('/login');
+      }
+    });
+  }
+
+  public cerrarSesion(): void {
+    this.localService.getObject("token").then( result => {
+      this.token = JSON.parse(result.value);  
+      this.logout(this.token);
+    });
+  }
+
+  public logout(token: string){
+      this.mundusApiService.logout(token).subscribe(response => {
+      this.localService.clearStorage();
+      this.menuCtrl.enable(false);
+      this.navController.navigateRoot('/login');  
+    })
+  }
+
 }

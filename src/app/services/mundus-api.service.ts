@@ -48,6 +48,12 @@ export class MundusApiService {
     });
   }
 
+  public logout(token: string ): Observable<any> {
+    return this.buildQuery('get', 'auth/logout', null, {
+      Authorization: 'Bearer '.concat(token)
+    });
+  }
+
   //Desarrollos
 
   public getDesarrollosByUser(params: { user_id : number; }): Observable<any> {
