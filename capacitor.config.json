@@ -1,8 +1,9 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "www.mundus.app",
   "appName": "mundus-app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
+  "linuxAndroidStudioPath": "/snap/bin/android-studio",
   "cordova": {}
 }

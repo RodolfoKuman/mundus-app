@@ -56,7 +56,7 @@ export class EstatusCuentaPage implements OnInit {
     if(this.formAcountData.controls.desarrollo.value != ''){
       this.desarrollo_id = this.formAcountData.controls.desarrollo.value;
 
-      const browser = this.iab.create(`${URL_API}customer/generate_pdf_for_app/desarrollo/${this.desarrollo_id}` );
+      const browser = this.iab.create(`${URL_API}customer/generate_pdf_for_app/desarrollo/${this.desarrollo_id}`, '_system' );
 
     }else{
       this.showToast('Debe seleccionar un desarrollo');
