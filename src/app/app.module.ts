@@ -10,6 +10,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AppRoutingModule } from './app-routing.module';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    InAppBrowser
+    InAppBrowser,
+    OneSignal
   ],
   bootstrap: [AppComponent]
 })

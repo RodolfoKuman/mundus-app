@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Platform, NavController, IonMenu, MenuController  } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MundusApiService } from './services/mundus-api.service';
 import { LocalService } from './services/local.service';
@@ -14,6 +15,7 @@ import { LocalService } from './services/local.service';
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public token : string;
+  public id;
   public appPages = [
     {
       title: 'Inicio',
@@ -41,7 +43,6 @@ export class AppComponent implements OnInit {
       icon: 'person'
     }
   ];
-  //public labels = ['Cerrar sesion'];
 
   constructor(
     private platform: Platform,
@@ -50,13 +51,47 @@ export class AppComponent implements OnInit {
     private navController: NavController,
     private localService : LocalService,
     private mundusApiService : MundusApiService,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private oneSignal: OneSignal
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      /* Configuracion notificaciones */ 
+      this.oneSignal.startInit("a3d5ee03-d848-4312-9277-fe2ce7fac4da", "1085109999777");
+
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert)
+
+      this.oneSignal.setSubscription(true);
+
+      this.oneSignal.getIds()
+        .then((ids)=> {
+          this.id = ids.pushToken;
+          this.token = ids.pushToken;
+        })
+
+      this.oneSignal.handleNotificationReceived().subscribe( ()=> {
+
+      })
+
+      this.oneSignal.handleNotificationOpened().subscribe( (data)=> {
+        console.log(data);
+        console.log(data.notification.payload.body); //Recuperando info de las notificaciones
+        //Si el usuario esta logueado lo mando a la vista de pagos
+        this.localService.getObject('usuario').then( data => {
+          if ( data.value != null ) {       
+            this.navController.navigateRoot('/payments');   
+          } else {
+            this.navController.navigateRoot('/login');
+          }
+        });
+        
+      })
+
+      this.oneSignal.endInit();
+      /* ****************************** */ 
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.validateLoged();
