@@ -69,5 +69,9 @@ export class MundusApiService {
     return this.buildQuery('post', 'payment/consulting', params);
   }
 
+  public getHistoryPayment(params: { sel_desarrollo : number }): Observable<any>{
+    return this.buildQuery('post', 'payment/history_payment_by_des', params);
+  }
+
 
 }

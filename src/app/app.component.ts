@@ -38,6 +38,11 @@ export class AppComponent implements OnInit {
       icon: 'list'
     },
     {
+      title: 'Notificaciones',
+      url: '/notifications',
+      icon: 'notifications'
+    },
+    {
       title: 'Mi perfil',
       url: '/perfil',
       icon: 'person'
@@ -60,7 +65,7 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
       /* Configuracion notificaciones */ 
-      this.oneSignal.startInit("a3d5ee03-d848-4312-9277-fe2ce7fac4da", "1085109999777");
+      this.oneSignal.startInit("439030c6-fbc8-4973-a6ae-71aa0ec031bb", "1085109999777");
 
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert)
 
@@ -79,15 +84,6 @@ export class AppComponent implements OnInit {
       this.oneSignal.handleNotificationOpened().subscribe( (data)=> {
         console.log(data);
         console.log(data.notification.payload.body); //Recuperando info de las notificaciones
-        //Si el usuario esta logueado lo mando a la vista de pagos
-        this.localService.getObject('usuario').then( data => {
-          if ( data.value != null ) {       
-            this.navController.navigateRoot('/payments');   
-          } else {
-            this.navController.navigateRoot('/login');
-          }
-        });
-        
       })
 
       this.oneSignal.endInit();

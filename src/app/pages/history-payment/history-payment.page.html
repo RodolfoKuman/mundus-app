@@ -8,50 +8,40 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-card>   
+    <ion-card-content>
+      <form [formGroup]="formHistory">
+        <ion-item>
+          <ion-label>Seleccione un desarrollo</ion-label>
+          <ion-select  
+            formControlName = "desarrollo"
+            name = "desarrollo"
+            cancelText="Cancelar" 
+            doneText="Ok">
+            <ion-select-option 
+              *ngFor="let desarrollo of desarrollos" 
+              value="{{ desarrollo.id_desarrollo_lote }}">{{ desarrollo.descripion }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button (click)="getHistoryPaymentByDesarrollo()" expand="block"  shape="round">Buscar</ion-button>
+      </form>
+    </ion-card-content>  
+  </ion-card>
+
   <ion-list>
-    <ion-item>
+    <ion-item  *ngFor="let payment of history_payments">
       <ion-label>
-        <h2>Febrero 2020</h2>
+        <h2 class="ion-text-wrap">{{ payment?.referencia }}</h2>
         <ion-text color="medium">
-          <h3 >Factura #01920</h3>
+          <h3 >{{ payment?.fecha_pago }}</h3>
         </ion-text>
       </ion-label>
       <ion-text>
-        <ion-badge color="warning">{{1200 | currency}}</ion-badge>   
-      </ion-text>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <h2>Enero 2020</h2>
-        <ion-text color="medium">
-          <h3>Factura #01920</h3>
-        </ion-text>
-      </ion-label>
-      <ion-text>
-        <ion-badge color="warning">{{800 | currency}}</ion-badge>   
-      </ion-text>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <h2>Noviembre 2019</h2>
-        <ion-text color="medium">
-          <h3>Factura #01920</h3>
-        </ion-text>
-      </ion-label>
-      <ion-text>
-        <ion-badge color="warning">{{750 | currency}}</ion-badge>   
-      </ion-text>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <h2>Diciembre 2019</h2>
-        <ion-text color="medium">
-          <h3>Factura #01920</h3>
-        </ion-text>
-      </ion-label>
-      <ion-text>
-        <ion-badge color="warning">{{750 | currency}}</ion-badge>   
+        <ion-badge color="warning">{{ payment?.mensualidad }}</ion-badge>   
       </ion-text>
     </ion-item>
   </ion-list>
+
 </ion-content>
