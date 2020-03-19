@@ -9,12 +9,15 @@
 
 <ion-content>
   <ion-list #lista>
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let notification of notifications">
       <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="http://35.226.149.232/{{notification?.data.img}}">
+        </ion-thumbnail>
         <ion-label>
-          <h2>Notificacion de pago</h2>
+          <h2 class="ion-text-wrap">{{ notification?.data.title }}</h2>
           <ion-text color="medium">
-            <h3>Tienes un pago pendiente este periodo</h3>
+            <h3>{{ notification?.data.body }} test</h3>
           </ion-text>
         </ion-label>
       </ion-item> 
@@ -24,25 +27,6 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-  
-    <ion-item-sliding>
-      <ion-item>
-        <ion-label>
-          <h2>Nueva promocion</h2>
-          <ion-text color="medium">
-            <h3>Lorem Ipsum Generador. Lorem ipsum dolor sit amet, 
-              onsectetur adipiscing elit, sed do eiusmod
-               tempor incididunt ut labore et dolore magna aliqua</h3>
-          </ion-text>
-        </ion-label>
-      </ion-item> 
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="borrar()">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-  
+  </ion-list> 
 </ion-content>
 

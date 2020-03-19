@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalResponse } from '../interfaces/responses.interface';
+import { Notification } from '../interfaces/notifications.interface';
 //import { FileSaver } from 'file-saver';
 
 const URL_API = environment.urlAPI;
@@ -52,6 +53,12 @@ export class MundusApiService {
     return this.buildQuery('get', 'auth/logout', null, {
       Authorization: 'Bearer '.concat(token)
     });
+  }
+
+  //Notificaciones
+  
+  public getNofitications(user: number): Observable<any> {
+    return this.buildQuery('get', `customer/get_user_notifications/${user}`);
   }
 
   //Desarrollos
