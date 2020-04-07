@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
     });
     this.localService.getObject("usuario").then( result => {
       this.usuario = JSON.parse(result.value);  
+      console.log(this.usuario);
       this.getDesarrollosByUser(this.usuario.id);
     });
   }

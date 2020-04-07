@@ -61,6 +61,14 @@ export class MundusApiService {
     return this.buildQuery('get', `customer/get_user_notifications/${user}`);
   }
 
+  public getNotiticationsToRead(user: number): Observable<any> {
+    return this.buildQuery('get', `customer/get_user_notifications/${user}`);
+  }
+
+  public deleteNofitication(params: { id : string}): Observable<any> {
+    return this.buildQuery('post', `customer/delete_notifications`, params);
+  }
+
   //Desarrollos
 
   public getDesarrollosByUser(params: { user_id : number; }): Observable<any> {
@@ -75,6 +83,11 @@ export class MundusApiService {
   public serchPeriodPayment(params: { sel_desarrollo : number; periodo : string }): Observable<any>{
     return this.buildQuery('post', 'payment/consulting', params);
   }
+
+  public paymentCapital(params: { desarrollo : number; importe : number, user_id : number }): Observable<any>{
+    return this.buildQuery('post', 'credit_capital', params);
+  }
+
 
   public getHistoryPayment(params: { sel_desarrollo : number }): Observable<any>{
     return this.buildQuery('post', 'payment/history_payment_by_des', params);

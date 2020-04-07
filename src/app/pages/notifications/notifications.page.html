@@ -10,19 +10,19 @@
 <ion-content>
   <ion-list #lista>
     <ion-item-sliding *ngFor="let notification of notifications">
-      <ion-item>
+      <ion-item href="{{notification?.link}}">
         <ion-thumbnail slot="start">
-          <img src="http://35.226.149.232/{{notification?.data.img}}">
+          <img src="https://corpmilenium.com.mx/{{notification?.data.img}}">
         </ion-thumbnail>
         <ion-label>
           <h2 class="ion-text-wrap">{{ notification?.data.title }}</h2>
-          <ion-text color="medium">
-            <h3>{{ notification?.data.body }} test</h3>
+          <ion-text class="ion-text-wrap" color="medium">
+            <h3>{{ notification?.data.body }}</h3>
           </ion-text>
         </ion-label>
       </ion-item> 
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="borrar()">
+        <ion-item-option color="danger" (click)="borrar(notification.id)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

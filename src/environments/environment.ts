@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlAPI: "http://127.0.0.1:8000/api/"
+  urlAPI: "https://corpmilenium.com.mx/api/"
 };
 
 /*

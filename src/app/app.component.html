@@ -12,7 +12,7 @@
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
               <ion-icon color="success"  slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
-              <ion-badge *ngIf="p.title == 'Notificaciones' " color="warning"> 0</ion-badge>
+              <ion-badge *ngIf="p.title == 'Notificaciones' " color="warning"> {{numNotifications}} </ion-badge>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>

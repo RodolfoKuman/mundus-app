@@ -9,24 +9,22 @@ import { MundusApiService } from '../../services/mundus-api.service';
 import { LocalService } from '../../services/local.service';
 
 @Component({
-  selector: 'app-payments',
-  templateUrl: './payments.page.html',
-  styleUrls: ['./payments.page.scss'],
+  selector: 'app-abono-capital',
+  templateUrl: './abono-capital.page.html',
+  styleUrls: ['./abono-capital.page.scss'],
 })
-export class PaymentsPage implements OnInit {
+export class AbonoCapitalPage implements OnInit {
 
   desarrollos : Desarrollo[] = [];
   usuario : Usuario = null;
   sel_desarrollo: number;
   desarrollo_id : number;
-  meses:Array<string>;
-  periodo = new Date().toISOString();
+  amount : number;
   uri_payment : string;
-
   showCard: boolean = false;
 
   formPayment: FormGroup;
-  
+
   constructor(
     private mundusApiService: MundusApiService,
     private localService: LocalService,
@@ -34,29 +32,28 @@ export class PaymentsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    
     this.formPayment = new FormGroup({
-      desarrollo: new FormControl('', Validators.required)
+      desarrollo: new FormControl('', Validators.required),
+      amount: new FormControl('', Validators.required)
     });
 
     this.localService.getObject("usuario").then( result => {
       this.usuario = JSON.parse(result.value);  
       this.getDesarrollosByUser(this.usuario.id);
     });
-  
   }
 
   public getDesarrollosByUser(user_id: number){
-      this.mundusApiService.getDesarrollosByUser({user_id: user_id}).subscribe(response => {
+    this.mundusApiService.getDesarrollosByUser({user_id: user_id}).subscribe(response => {
       this.desarrollos = response;
     })
   }
 
-  public searchPaymentPeriod() {
+  public paymentAmount() {
     if(this.formPayment.controls.desarrollo.value != ''){
       this.desarrollo_id = this.formPayment.controls.desarrollo.value;
-      this.mundusApiService.serchPeriodPayment({sel_desarrollo: this.desarrollo_id, periodo: this.periodo.substring(0,7)})
+      this.amount = this.formPayment.controls.amount.value;
+      this.mundusApiService.paymentCapital({desarrollo: this.desarrollo_id, importe: this.amount, user_id: this.usuario.id})
           .subscribe(response => {
             if(response == 0){
               this.showCard = false;
@@ -67,9 +64,6 @@ export class PaymentsPage implements OnInit {
             }
             
           });
-    }else{
-      this.showCard = false;
-      this.showToast('Debe seleccionar un desarrollo');
     }
   }
 
@@ -77,10 +71,6 @@ export class PaymentsPage implements OnInit {
     this.showCard = true;
   }
 
-  public dateChanged(date) {
-    this.periodo = date.detail.value;
-  }
-  
   private async showToast( message: string ) {
     const toast = await this.toasCtrl.create({ message, duration: 2000, position: 'bottom' });
     await toast.present();

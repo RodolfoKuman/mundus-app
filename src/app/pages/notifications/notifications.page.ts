@@ -38,18 +38,19 @@ export class NotificationsPage implements OnInit {
         if(response.length > 0){
           response.forEach(notification => {
             this.notification = JSON.parse(notification.data);
-            
+            this.notification.id = notification.id;
             this.notifications.push(this.notification);
           });
         }
-        console.log(this.notifications);
       }) 
       
   }
 
-  public borrar(){
-    console.log('borrado');
-    this.lista.closeSlidingItems();
+  public borrar(id){ 
+    this.mundusApiService.deleteNofitication({id}).subscribe(response => {
+      this.notifications = this.notifications.filter(noti => noti.id !== id);
+      this.lista.closeSlidingItems();
+    });
   }
 
 }

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Abono a capital</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>   
+    <ion-card-content>
+      <form [formGroup]="formPayment">
+        <ion-item>
+          <ion-label>Seleccione un desarrollo</ion-label>
+          <ion-select
+            formControlName = "desarrollo"
+            name = "desarrollo"
+            cancelText="Cancelar" 
+            doneText="Ok"
+            >
+            <ion-select-option 
+            *ngFor="let desarrollo of desarrollos" 
+            value="{{ desarrollo.id_desarrollo_lote }}">{{ desarrollo.descripion }}
+          </ion-select-option>
+          </ion-select>
+        </ion-item>  
+        <ion-item>
+          <ion-label>Importe:</ion-label>
+          <ion-input formControlName = "amount"
+                      name = "amount" 
+                      type="number" 
+                      inputmode="decimal" 
+                      value=""></ion-input>
+        </ion-item>
+        <ion-button (click)="paymentAmount()" expand="block" shape="round">Realizar pago</ion-button>
+      </form>
+    </ion-card-content>  
+  </ion-card>
+  <div *ngIf="showCard">
+    <app-payment-card  [url]="uri_payment"></app-payment-card>
+  </div>
+  
+</ion-content>
+

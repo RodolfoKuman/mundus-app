@@ -4,11 +4,17 @@ export interface Notification {
     type: string;
     notifiable_type: string;
     notifiable_id: string;
-    data: string;
+    data:string;
     movil?: string;
     read_at?: string;
     created_at: string;
     updated_at: string;
+}
+
+export interface Data {
+    title: string;
+    body?: string;
+    link: string;
 }
 
 

@@ -42,10 +42,11 @@ export class LoginPage implements OnInit {
         this.mundusApiService.getUserLoged( response.access_token ).subscribe( (user: Usuario) => {
             this.localService.saveObject('usuario', user);
             this.localService.saveObject('token', response.access_token);
+
             loading.dismiss();
+            
             this.menuCtrl.enable(true);
             this.navController.navigateRoot('/home');
-            //this.events.publish('login:event', true);
         });
     }, error => {
         console.log(error);

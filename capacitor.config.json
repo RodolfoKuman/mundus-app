@@ -1,6 +1,7 @@
 {
-  "appId": "www.mundus.app",
+  "appId": "com.corpmilenium.mundus",
   "appName": "Mundus",
+  "version": "1.0.0",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

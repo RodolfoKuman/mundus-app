@@ -6,6 +6,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MundusApiService } from './services/mundus-api.service';
 import { LocalService } from './services/local.service';
+import { Usuario } from './interfaces/usuario.interface';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,12 @@ import { LocalService } from './services/local.service';
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public token : string;
+  public usuario : Usuario = null;
+  public numNotifications : number = 0;
   public id;
   public appPages = [
     {
-      title: 'Inicio',
+      title: 'Información de contrato',
       url: '/home',
       icon: 'home'
     },
@@ -31,6 +34,11 @@ export class AppComponent implements OnInit {
       title: 'Pagar mensualidad',
       url: '/payments',
       icon: 'card'
+    },
+    {
+      title: 'Abonos',
+      url: '/abono-capital',
+      icon: 'cash'
     },
     {
       title: 'Historial de pagos',
@@ -82,8 +90,8 @@ export class AppComponent implements OnInit {
       })
 
       this.oneSignal.handleNotificationOpened().subscribe( (data)=> {
-        console.log(data);
-        console.log(data.notification.payload.body); //Recuperando info de las notificaciones
+        //console.log(data);
+        //console.log(data.notification.payload.body); //Recuperando info de las notificaciones
       })
 
       this.oneSignal.endInit();
@@ -104,6 +112,7 @@ export class AppComponent implements OnInit {
   private validateLoged(): void {
     this.localService.getObject('usuario').then( data => {
       if ( data.value != null ) {       
+        this.countNotifications();
         this.navController.navigateRoot('/home');    
       } else {
         this.navController.navigateRoot('/login');
@@ -119,11 +128,25 @@ export class AppComponent implements OnInit {
   }
 
   public logout(token: string){
-      this.mundusApiService.logout(token).subscribe(response => {
+    this.mundusApiService.logout(token).subscribe(response => {
       this.localService.clearStorage();
       this.menuCtrl.enable(false);
       this.navController.navigateRoot('/login');  
     })
+  }
+
+  public countNotifications(){
+     this.localService.getObject("usuario").then(result => {
+      this.usuario = JSON.parse(result.value); 
+      this.getNotificationsByUser(this.usuario.id);
+    });
+  }
+
+   getNotificationsByUser(user_id){      
+    this.mundusApiService.getNofitications(user_id).subscribe(response => {
+      this.numNotifications = response.length;
+      return response;    
+    }) 
   }
 
 }

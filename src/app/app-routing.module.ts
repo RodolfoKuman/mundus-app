@@ -41,6 +41,10 @@ const routes: Routes = [
   {
     path: 'notifications',
     loadChildren: () => import('./pages/notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },
+  {
+    path: 'abono-capital',
+    loadChildren: () => import('./pages/abono-capital/abono-capital.module').then( m => m.AbonoCapitalPageModule)
   }
 ];
 

@@ -15,19 +15,19 @@ export class LocalService {
   ) {}
 
   public saveObject( key: string, value: any ) {
-     return Storage.set({ key, value: JSON.stringify(value) });
-  }
+    return Storage.set({ key, value: JSON.stringify(value) });
+ }
 
-  public getObject( key: string ) {
-    return Storage.get({ key });
-  }
+ public getObject( key: string ) {
+   return Storage.get({ key });
+ }
 
-  public removeObject( key: string ) {
-    Storage.remove({ key });
-  }
+ public removeObject( key: string ) {
+   Storage.remove({ key });
+ }
 
-  async clearStorage() {
-    await Storage.clear();
-  }
+ async clearStorage() {
+   await Storage.clear();
+ }
 
 }
