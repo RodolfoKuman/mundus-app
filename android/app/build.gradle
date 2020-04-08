@@ -1,15 +1,13 @@
-apply plugin: 'com.android.application'
+    apply plugin: 'com.android.application'
 
 android {
-
-    buildToolsVersion = '28.0.3'
     compileSdkVersion 28
     defaultConfig {
-        applicationId "www.mundus.app"
+        applicationId "com.corpmilenium.mundus"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName '1.2'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -1,4 +1,4 @@
-package www.mundus.app;
+package com.corpmilenium.mundus;
 
 import android.os.Bundle;
 
