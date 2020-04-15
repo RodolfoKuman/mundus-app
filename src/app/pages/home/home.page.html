@@ -15,13 +15,15 @@
       <ion-item>
         <ion-label>Seleccione un desarrollo</ion-label>
         <ion-select  
-          formControlName = "desarrollo"
-          name = "desarrollo"
+          value="{{first_des}}"
+          formControlName="desarrollo"
+          name= "desarrollo"
           cancelText="Cancelar" 
           doneText="Ok">
           <ion-select-option 
-            *ngFor="let desarrollo of desarrollos" 
-            value="{{ desarrollo.id_desarrollo_lote }}">{{ desarrollo.descripion }}
+            *ngFor="let desarrollo of desarrollos;" 
+            value="{{ desarrollo.id_desarrollo_lote }}">
+            {{ desarrollo.descripion }}
           </ion-select-option>
         </ion-select>
       </ion-item>

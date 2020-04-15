@@ -84,7 +84,7 @@ export class MundusApiService {
     return this.buildQuery('post', 'payment/consulting', params);
   }
 
-  public paymentCapital(params: { desarrollo : number; importe : number, user_id : number }): Observable<any>{
+  public paymentCapital(params: { desarrollo : number; importe : string, user_id : number }): Observable<any>{
     return this.buildQuery('post', 'credit_capital', params);
   }
 

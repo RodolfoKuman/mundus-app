@@ -19,9 +19,11 @@ export class AbonoCapitalPage implements OnInit {
   usuario : Usuario = null;
   sel_desarrollo: number;
   desarrollo_id : number;
-  amount : number;
+  amount : string;
   uri_payment : string;
   showCard: boolean = false;
+  first_des : number;
+  value:any;
 
   formPayment: FormGroup;
 
@@ -46,33 +48,38 @@ export class AbonoCapitalPage implements OnInit {
   public getDesarrollosByUser(user_id: number){
     this.mundusApiService.getDesarrollosByUser({user_id: user_id}).subscribe(response => {
       this.desarrollos = response;
+      this.first_des = response[0].id_desarrollo_lote;
     })
   }
 
   public paymentAmount() {
-    if(this.formPayment.controls.desarrollo.value != ''){
+    if(this.formPayment.controls.amount.value != '' && this.formPayment.controls.amount.value != undefined){
       this.desarrollo_id = this.formPayment.controls.desarrollo.value;
       this.amount = this.formPayment.controls.amount.value;
+      this.amount = this.amount.replace(/,/g, "");
       this.mundusApiService.paymentCapital({desarrollo: this.desarrollo_id, importe: this.amount, user_id: this.usuario.id})
           .subscribe(response => {
             if(response == 0){
               this.showCard = false;
-              this.showToast('No tiene un adeudo en este periodo');
+   
             }else{
                this.uri_payment = response.uri_payment[0];
                this.showPaymentCard();
             }
             
           });
+    }else{
+      this.showToast('Ingrese el importe que desea abonar.');
     }
   }
+
 
   public showPaymentCard(){
     this.showCard = true;
   }
 
   private async showToast( message: string ) {
-    const toast = await this.toasCtrl.create({ message, duration: 2000, position: 'bottom' });
+    const toast = await this.toasCtrl.create({ message, duration: 3000, position: 'bottom' });
     await toast.present();
   }
 

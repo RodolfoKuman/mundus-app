@@ -26,6 +26,7 @@ export class EstatusCuentaPage implements OnInit {
   public acountDetail : AcountDetail[] = [];
   public sel_desarrollo: number;
   public desarrollo_id : number;
+  public first_des : number;
 
   public formAcountData: FormGroup;
 
@@ -49,6 +50,7 @@ export class EstatusCuentaPage implements OnInit {
   public getDesarrollosByUser(user_id: number){
     this.mundusApiService.getDesarrollosByUser({user_id: user_id}).subscribe(response => {
       this.desarrollos = response;
+      this.first_des = response[0].id_desarrollo_lote;
     })
   }
 

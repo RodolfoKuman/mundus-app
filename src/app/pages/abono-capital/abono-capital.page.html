@@ -14,6 +14,7 @@
         <ion-item>
           <ion-label>Seleccione un desarrollo</ion-label>
           <ion-select
+            value="{{first_des}}"
             formControlName = "desarrollo"
             name = "desarrollo"
             cancelText="Cancelar" 
@@ -29,9 +30,10 @@
           <ion-label>Importe:</ion-label>
           <ion-input formControlName = "amount"
                       name = "amount" 
-                      type="number" 
+                      type="text" 
                       inputmode="decimal" 
-                      value=""></ion-input>
+                      [ngModel]="value | numberPipe" (ngModelChange)="value=$event"
+                      ></ion-input>
         </ion-item>
         <ion-button (click)="paymentAmount()" expand="block" shape="round">Realizar pago</ion-button>
       </form>

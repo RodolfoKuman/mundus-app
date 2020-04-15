@@ -22,6 +22,7 @@ export class PaymentsPage implements OnInit {
   meses:Array<string>;
   periodo = new Date().toISOString();
   uri_payment : string;
+  first_des : number;
 
   showCard: boolean = false;
 
@@ -50,6 +51,7 @@ export class PaymentsPage implements OnInit {
   public getDesarrollosByUser(user_id: number){
       this.mundusApiService.getDesarrollosByUser({user_id: user_id}).subscribe(response => {
       this.desarrollos = response;
+      this.first_des = response[0].id_desarrollo_lote;
     })
   }
 
