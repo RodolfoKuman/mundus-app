@@ -88,6 +88,10 @@ export class MundusApiService {
     return this.buildQuery('post', 'credit_capital', params);
   }
 
+  public paymentMtto(params: { desarrollo : number; year : string, user_id : number }): Observable<any>{
+    return this.buildQuery('post', 'paymantto/payment', params);
+  }
+
 
   public getHistoryPayment(params: { sel_desarrollo : number }): Observable<any>{
     return this.buildQuery('post', 'payment/history_payment_by_des', params);

@@ -36,7 +36,12 @@ export class AppComponent implements OnInit {
       icon: 'card'
     },
     {
-      title: 'Abonos',
+      title: 'Pagar mantenimiento',
+      url: '/mantenimiento',
+      icon: 'build'
+    },
+    {
+      title: 'Abonar a capital',
       url: '/abono-capital',
       icon: 'cash'
     },

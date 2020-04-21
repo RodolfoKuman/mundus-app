@@ -45,7 +45,12 @@ const routes: Routes = [
   {
     path: 'abono-capital',
     loadChildren: () => import('./pages/abono-capital/abono-capital.module').then( m => m.AbonoCapitalPageModule)
-  }
+  },
+  {
+    path: 'mantenimiento',
+    loadChildren: () => import('./pages/mantenimiento/mantenimiento.module').then( m => m.MantenimientoPageModule)
+  },
+
 ];
 
 @NgModule({

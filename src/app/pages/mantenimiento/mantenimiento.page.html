@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Pagar mantenimiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>   
+    <ion-card-content>
+      <form [formGroup]="formPayment">
+        <ion-item>
+          <ion-label>Seleccione un desarrollo</ion-label>
+          <ion-select
+            value="{{first_des}}"
+            formControlName = "desarrollo"
+            name = "desarrollo"
+            cancelText="Cancelar" 
+            doneText="Ok"
+            >
+            <ion-select-option 
+            *ngFor="let desarrollo of desarrollos" 
+            value="{{ desarrollo.id_desarrollo_lote }}">{{ desarrollo.descripion }}
+          </ion-select-option>
+          </ion-select
+          >
+        </ion-item>  
+        <ion-item>
+            <ion-label>Elija un periodo</ion-label>
+            <ion-datetime 
+              
+              (ionChange)="dateChanged($event)"
+              cancelText="Cancelar" 
+              doneText="Ok" 
+              displayFormat="YYYY" 
+              value="">
+              
+            </ion-datetime>
+        </ion-item>
+        <ion-button (click)="paymentMtto()" expand="block" shape="round">Buscar</ion-button>
+      </form>
+    </ion-card-content>  
+  </ion-card>
+  <div *ngIf="showCard">
+    <app-payment-card  [url]="uri_payment"></app-payment-card>
+  </div>
+  
+</ion-content>
+
