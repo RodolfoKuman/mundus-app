@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, OnDestroy  } from '@angular/core';
 
-import { Platform, NavController, IonMenu, MenuController  } from '@ionic/angular';
+import { Platform, NavController, MenuController, IonRouterOutlet, AlertController , ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx'
+;
 import { MundusApiService } from './services/mundus-api.service';
 import { LocalService } from './services/local.service';
 import { Usuario } from './interfaces/usuario.interface';
@@ -14,6 +16,14 @@ import { Usuario } from './interfaces/usuario.interface';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+  // for storing the returned subscription
+  backButtonSubscription;
+  @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
+
+  // set up hardware back button event.
+  lastTimeBackPress = 0;
+  timePeriodToExit = 2000;
+
   public selectedIndex = 0;
   public token : string;
   public usuario : Usuario = null;
@@ -67,16 +77,20 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private navController: NavController,
+    private toasCtrl: ToastController,
     private localService : LocalService,
     private mundusApiService : MundusApiService,
     private menuCtrl: MenuController,
-    private oneSignal: OneSignal
+    private oneSignal: OneSignal,
+    public alertController: AlertController,
+    public router: Router,
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.backButtonEvent();
       /* Configuracion notificaciones */ 
       this.oneSignal.startInit("439030c6-fbc8-4973-a6ae-71aa0ec031bb", "1085109999777");
 
@@ -147,11 +161,65 @@ export class AppComponent implements OnInit {
     });
   }
 
-   getNotificationsByUser(user_id){      
+  getNotificationsByUser(user_id){      
     this.mundusApiService.getNofitications(user_id).subscribe(response => {
       this.numNotifications = response.length;
       return response;    
     }) 
+  }
+
+  backButtonEvent() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(async () => {
+      this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
+        if (outlet && outlet.canGoBack()) {
+          outlet.pop();
+        } else {
+          // this.presentAlertConfirm();
+          if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+            navigator['app'].exitApp();
+          } else {
+            this.showToast('Presione otra vez para salir de la aplicación.');
+            this.lastTimeBackPress = new Date().getTime();
+          }
+        }
+      });
+    });
+  }
+
+
+  private async showToast( message: string ) {
+    const toast = await this.toasCtrl.create({ message, duration: 1500 });
+    await toast.present();
+}
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: '¿Deseas salir de la aplicación?',
+      message: 'Presiona confirmar para salir de la aplicación',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            //console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Exit',
+          handler: () => {
+            //console.log('Confirm Okay');
+            navigator["app"].exitApp();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  //Called when view is left
+  ngOnDestroy() {
+    // Unregister the custom back button action for this page
+    this.backButtonSubscription.unsubscribe();
   }
 
 }
