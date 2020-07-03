@@ -10,7 +10,7 @@
 <ion-content>
   <ion-item-group>
     <ion-item-divider>
-      <ion-icon color="danger" name="person-circle-outline"></ion-icon>
+      <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>
         <ion-text color="danger">
           Mi perfil
@@ -58,4 +58,36 @@
       </ion-label>
     </ion-item>
   </ion-item-group>
+
+  <ion-item-divider>
+    
+    <ion-label>
+      <ion-icon name="key-outline"></ion-icon>
+      <ion-text color="danger">
+        Cambiar mi contraseña
+      </ion-text>
+    </ion-label>
+  </ion-item-divider>
+ 
+    <ion-card>   
+      <ion-card-content>
+        <form [formGroup]="formPerfil" >
+          <ion-input
+                  formControlName = "password"
+                  placeholder = "Nueva contraseña"
+                  type = "password"
+                  name = "password"></ion-input>
+
+          <ion-input
+                  formControlName = "password_confirmation"
+                  name = "password_confirmation"
+                  type = "password"
+                  placeholder = "Repetir Contraseña"></ion-input>
+
+          <ion-button (click)="setPassport()" expand="block" shape="round">Guardar</ion-button>
+        </form>
+         
+    </ion-card-content>
+    </ion-card>
+      
 </ion-content>

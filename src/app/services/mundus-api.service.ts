@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalResponse } from '../interfaces/responses.interface';
 import { Notification } from '../interfaces/notifications.interface';
+
 //import { FileSaver } from 'file-saver';
 
 const URL_API = environment.urlAPI;
@@ -27,16 +28,6 @@ export class MundusApiService {
     }
   }
 
-  //PRUEBAS
-
-  public getPost(){
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
-  }
-
-  public getProductos(limit: number, offset: number): Observable<GlobalResponse> {
-    return this.buildQuery('get', `products/limit/${limit}/offset/${offset}`);
-  }
-
   //USUARIOS
 
   public loginUser( params: { email: string; password: string; } ): Observable<any> {
@@ -53,6 +44,10 @@ export class MundusApiService {
     return this.buildQuery('get', 'auth/logout', null, {
       Authorization: 'Bearer '.concat(token)
     });
+  }
+
+  public updatePassword(params: { user_id : number, password : string, password_confirmation : string }){
+    return this.buildQuery('post', 'customer/password_update', params);
   }
 
   //Notificaciones

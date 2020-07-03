@@ -57,17 +57,21 @@ export class AbonoCapitalPage implements OnInit {
       this.desarrollo_id = this.formPayment.controls.desarrollo.value;
       this.amount = this.formPayment.controls.amount.value;
       this.amount = this.amount.replace(/,/g, "");
-      this.mundusApiService.paymentCapital({desarrollo: this.desarrollo_id, importe: this.amount, user_id: this.usuario.id})
+      if(+this.amount > 0 ){
+        this.mundusApiService.paymentCapital({desarrollo: this.desarrollo_id, importe: this.amount, user_id: this.usuario.id})
           .subscribe(response => {
             if(response == 0){
               this.showCard = false;
-   
             }else{
                this.uri_payment = response.uri_payment[0];
                this.showPaymentCard();
             }
             
           });
+      }else{
+        this.showToast('El importe debe ser mayor a 0.');
+      }
+      
     }else{
       this.showToast('Ingrese el importe que desea abonar.');
     }

@@ -40,6 +40,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
 
         if (err.status === 401) {
+          this.localService.clearStorage();
           this.menuCtrl.enable(false);
           this.navController.navigateRoot('/login');
         }
